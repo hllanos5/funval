@@ -1,5 +1,5 @@
 import http from "node:http"
-import {indexService, empleadosGetAllService} from "./controller.js"
+import {indexService, empleadosGetAllService, empleadosExportTxt} from "./controller.js"
 import { PORT } from "./config.js"
 
 /*Creando server*/
@@ -26,7 +26,7 @@ const server = http.createServer((request, response) => {
   if (method === "POST") {
     switch (url) {
        case "/export":
-       
+          empleadosExportTxt(request, response);
         break;
       case "/import":
         
