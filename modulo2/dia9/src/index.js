@@ -1,5 +1,5 @@
 import http from "node:http"
-import {index, empleadosGetAll} from "./controller.js"
+import {indexService, empleadosGetAllService} from "./controller.js"
 import { PORT } from "./config.js"
 
 /*Creando server*/
@@ -11,11 +11,11 @@ const server = http.createServer((request, response) => {
     switch (url) {
       case "/":
         //Mostrando la pagina de inicio
-        index(request, response)
+        indexService(request, response)
         break;
       case "/empleados":
         //Mostrando todos los empleados
-        empleadosGetAll(request, response);
+        empleadosGetAllService(request, response);
         break;
       default:
         response.writeHead(404, { "Content-Type": "text/plain" });

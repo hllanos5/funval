@@ -1,9 +1,8 @@
-
 import path from "node:path";
 import fs from "node:fs/promises";
-import { pool } from "./bd.js";
+import { empleadosGetAll } from "./repository.js";
 
-export const index = async (request, response) => {
+export const indexService = async (request, response) => {
   try {
     const data = await fs.readFile("index.html");
     response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
@@ -14,13 +13,12 @@ export const index = async (request, response) => {
   }
 }
 
-export const empleadosGetAll = async (request, response) => {
+export const empleadosGetAllService = async (request, response) => {
   try {
-    let query = "SELECT * FROM staff";    
-    const [rs] = await pool.execute(query);
-
+    const aEmpleados = await empleadosGetAll();
+    
     response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end(JSON.stringify(rs));
+    response.end(JSON.stringify(aEmpleados));
   }
   catch (error) {
     console.log("Ha sucedido un error al leer el archivo index" + error.message);
