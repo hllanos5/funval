@@ -9,3 +9,11 @@ export const grabarArchivo = (nombreArchivo, contenido) => {
         console.log('Operación exitosa');
     })
 }
+
+export const leerArchivo = async (nombreArchivo) => {
+    return fs.readFile(nombreArchivo, 'utf-8', (err, data) => {
+        if (err) {
+            console.log('Hubo un error: ', err);
+        }        
+    })
+}
