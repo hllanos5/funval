@@ -53,38 +53,62 @@ export const usuarioImportCsvService = async (request, response) => {
     let nomArchivo  = "import.csv"
     let regexCorreo = /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/
 
-    const aUsuario = await usuarioGetAll()
-    const dato = await leerArchivo(nomArchivo)
+    const aUsuario  = await usuarioGetAll()
+    const dato      = await leerArchivo(nomArchivo)
 
-    const filas = dato.split('\n');
-    const cabecera = filas[0].split(',');
+    const filas     = dato.split('\n');
+    const cabecera  = filas[0].split(',');
     filas.shift();
 
-    const cuerpo = filas;
-    let numFila = 1;
+    const cuerpo        = filas;
+    let numFila         = 1;
     let desMensajeError = "";
-    let flagError = false;
+    let flagError       = false;
 
     cuerpo.forEach(function (fila) {
       flagError = false;
       let dato = fila.split(',')
 
       aUsuario.forEach(function (usuario) {
-        //Validacion por id y por correo electronico
-        if (parseInt(dato[0]) === usuario.id || dato[4] === usuario.correo) {
+        //Validacion por id
+        if (parseInt(dato[0]) === usuario.id ) {
           flagError = true;
-          desMensajeError += " Dato repetido --> Fila[" + (numFila + 1) + "]\n";
-          return;
+          desMensajeError += " Dato repetido [Id] --> Fila[" + (numFila + 1) + "]\n"          
+        }
+        //Validacion por correo electronico
+        if (dato[4] === usuario.correo) {
+          flagError = true;
+          desMensajeError += " Dato repetido [Correo Electronico] --> Fila[" + (numFila + 1) + "]\n"         
+        }
+        //Validacion por dni
+        if (dato[5] === usuario.dni) {
+          flagError = true;
+          desMensajeError += " Dato repetido [Correo Electronico] --> Fila[" + (numFila + 1) + "]\n"         
+        }
+        //Para que pase a la siguiente linea para la validacion
+        if(flagError === true) {          
+          return
         }
       })
+
+      //Validacion por datos no vacios
+      //validacion por correo electronico
+      if (dato[4] === '') {
+        flagError = true;
+        desMensajeError += " Dato Vacio [Correo Electronico] --> Fila[" + (numFila + 1) + "]\n"         
+      }
+      if (dato[5] === '') {
+        flagError = true;
+        desMensajeError += " Dato Vacio [Dni] --> Fila[" + (numFila + 1) + "]\n"         
+      }
 
       if (flagError === false) {
         //Validacion por correo electronico
         if (!regexCorreo.test(dato[4])) {
-            mensajeError += "Formato de correo incorrecto --> fila [" + (numFila + 1)+ "]"
+            desMensajeError += "Formato de correo incorrecto --> fila [" + (numFila + 1)+ "]"
         }
         else{
-          //Inserta si no ha pasado todas las validaciones
+          //Inserta si ha pasado todas las validaciones
           dato.pop();
           usuarioInsert(cabecera, dato)
         }
@@ -92,9 +116,16 @@ export const usuarioImportCsvService = async (request, response) => {
       numFila++;
     });
 
+    if (desMensajeError.length > 0) {
+      response.writeHead(200, { "Content-Type": "text/plain" })
+      response.end(JSON.stringify({ message: desMensajeError }))
+    }
+    else {
+      response.writeHead(200, { "Content-Type": "text/plain" })
+      response.end(JSON.stringify({ message: "Importacion de exito" }))
+    }
 
-    response.writeHead(200, { "Content-Type": "text/plain" })
-    response.end(JSON.stringify({ message: "Importacion de exito" }))
+    
   } catch (error) {
     console.log("Ha sucedido un error al importar el archivo " + error.message);
   }
