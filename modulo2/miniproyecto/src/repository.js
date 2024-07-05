@@ -23,3 +23,4 @@ export const usuarioInsert = async (cabecera, usuario) => {
     console.log("Ha sucedido al insertar un dato " + error);
   }
 }
+//export default {usuarioGetAll , usuarioInsert}
