@@ -16,22 +16,30 @@ export const indexService = async (request, response) => {
 
 export const usuarioGetAllService = async (request, response) => {
   try {
-    const aEmpleado = await usuarioGetAll();
+    const aUsuario = await usuarioGetAll();
 
     response.writeHead(200, { "Content-Type": "text/plain" })
-    response.end(JSON.stringify(aEmpleado))
+    response.end(JSON.stringify(aUsuario))
   }
   catch (error) {
     console.log("Ha sucedido un error al leer el archivo index" + error.message);
   }
 }
 
-export const empleadosExportTxtService = async (request, response) => {
+export const usuarioExportCsvService = async (request, response) => {
   try {
-    const aEmpleado = await empleadosGetAll()
-    let nomArchivo = "archivo.txt"
+    const aUsuario = await usuarioGetAll()
+    let nomArchivo = "usuarios.csv"
+    let texto = "";
 
-    grabarArchivo(nomArchivo, JSON.stringify(aEmpleado))
+    aUsuario.forEach(function (usuario) {
+      Object.entries(usuario).forEach(([key, value]) => {
+        texto += value + ","
+      });
+      texto = texto.substring(0, texto.length - 1) + "\n";
+    })
+
+    grabarArchivo(nomArchivo, texto)
 
     response.writeHead(200, { "Content-Type": "text/plain" })
     response.end("Se ha grabado el archivo")
@@ -46,37 +54,37 @@ export const empleadosImportCsvService = async (request, response) => {
 
     const aEmpleado = await empleadosGetAll()
     const dato = await leerArchivo(nomArchivo)
-    
-    const filas     = dato.split('\n');
-    const cabecera  = filas[0].split(',');
+
+    const filas = dato.split('\n');
+    const cabecera = filas[0].split(',');
     filas.shift();
 
-    const cuerpo        = filas;
-    let numFila         = 1;
+    const cuerpo = filas;
+    let numFila = 1;
     let desMensajeError = "";
-    let flagError       = false;
+    let flagError = false;
 
     cuerpo.forEach(function (fila) {
       flagError = false;
-      let dato  = fila.split(',')
+      let dato = fila.split(',')
 
       aEmpleado.forEach(function (empleado) {
         if (parseInt(dato[0]) === empleado.staff_id) {
-          flagError        = true;
+          flagError = true;
           desMensajeError += " Dato repetido --> Fila[" + numFila + "]";
           return;
         }
       })
 
-      if(flagError === false){
+      if (flagError === false) {
         let dato = fila.split(',');
         empleadosInsert(cabecera, dato);
       }
       numFila++;
     });
-    
+
     response.writeHead(200, { "Content-Type": "text/plain" })
-    response.end(JSON.stringify({message: "Importacion de exito"}))
+    response.end(JSON.stringify({ message: "Importacion de exito" }))
   } catch (error) {
     console.log("Ha sucedido un error al importar el archivo " + error.message);
   }
