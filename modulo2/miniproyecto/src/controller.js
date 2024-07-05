@@ -1,6 +1,6 @@
 import path from "node:path"
 import fs from "node:fs/promises"
-import { usuarioGetAll, empleadosInsert } from "./repository.js"
+import { usuarioGetAll, usuarioInsert } from "./repository.js"
 import { grabarArchivo, leerArchivo } from "./utility.js"
 
 export const indexService = async (request, response) => {
@@ -28,9 +28,9 @@ export const usuarioGetAllService = async (request, response) => {
 
 export const usuarioExportCsvService = async (request, response) => {
   try {
-    const aUsuario  = await usuarioGetAll()
-    let nomArchivo  = "usuarios.csv"
-    let texto       = "id,nombres,apellidos,direccion,correo,dni,edad,telefono,fecha_creacion\n"
+    const aUsuario = await usuarioGetAll()
+    let nomArchivo = "usuarios.csv"
+    let texto = "id,nombres,apellidos,direccion,correo_electronico,dni,edad,telefono,fecha_creacion\n"
 
     aUsuario.forEach(function (usuario) {
       Object.entries(usuario).forEach(([key, value]) => {
@@ -48,11 +48,12 @@ export const usuarioExportCsvService = async (request, response) => {
   }
 }
 
-export const empleadosImportCsvService = async (request, response) => {
+export const usuarioImportCsvService = async (request, response) => {
   try {
-    let nomArchivo = "import.csv"
+    let nomArchivo  = "import.csv"
+    let regexCorreo = /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/
 
-    const aEmpleado = await empleadosGetAll()
+    const aUsuario = await usuarioGetAll()
     const dato = await leerArchivo(nomArchivo)
 
     const filas = dato.split('\n');
@@ -68,20 +69,29 @@ export const empleadosImportCsvService = async (request, response) => {
       flagError = false;
       let dato = fila.split(',')
 
-      aEmpleado.forEach(function (empleado) {
-        if (parseInt(dato[0]) === empleado.staff_id) {
+      aUsuario.forEach(function (usuario) {
+        //Validacion por id y por correo electronico
+        if (parseInt(dato[0]) === usuario.id || dato[4] === usuario.correo) {
           flagError = true;
-          desMensajeError += " Dato repetido --> Fila[" + numFila + "]";
+          desMensajeError += " Dato repetido --> Fila[" + (numFila + 1) + "]\n";
           return;
         }
       })
 
       if (flagError === false) {
-        let dato = fila.split(',');
-        empleadosInsert(cabecera, dato);
+        //Validacion por correo electronico
+        if (!regexCorreo.test(dato[4])) {
+            mensajeError += "Formato de correo incorrecto --> fila [" + (numFila + 1)+ "]"
+        }
+        else{
+          //Inserta si no ha pasado todas las validaciones
+          dato.pop();
+          usuarioInsert(cabecera, dato)
+        }
       }
       numFila++;
     });
+
 
     response.writeHead(200, { "Content-Type": "text/plain" })
     response.end(JSON.stringify({ message: "Importacion de exito" }))

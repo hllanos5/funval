@@ -1,11 +1,11 @@
 import http from "node:http"
-import { indexService, usuarioGetAllService, usuarioExportCsvService, empleadosImportCsvService } from "./controller.js"
+import { indexService, usuarioGetAllService, usuarioExportCsvService, usuarioImportCsvService } from "./controller.js"
 import { PORT } from "./config.js"
 
 /*Creando server*/
 const server = http.createServer((request, response) => {
-  const url = request.url;
-  const method = request.method;
+  const url = request.url
+  const method = request.method
 
   if (method === "GET") {
     switch (url) {
@@ -15,30 +15,32 @@ const server = http.createServer((request, response) => {
         break;
       case "/api/usuarios":
         //Mostrando todos los empleados
-        usuarioGetAllService(request, response);
+        usuarioGetAllService(request, response)
         break;
       default:
-        response.writeHead(404, { "Content-Type": "text/plain" });
-        response.end("Ruta no encontrada");
+        response.writeHead(404, { "Content-Type": "text/plain" })
+        response.end("Ruta no encontrada")
         break;
     }
   }
   if (method === "POST") {
     switch (url) {
       case "/api/usuarios/export":
-        usuarioExportCsvService(request, response);
+        //Exportacion de usuario
+        usuarioExportCsvService(request, response)
         break;
-      case "/import":
-        empleadosImportCsvService(request, response);
+      case "/api/usuarios/import":
+        //Importacion de usuario
+        usuarioImportCsvService(request, response)
         break;
 
       default:
-        response.writeHead(404, { "Content-Type": "text/plain" });
-        response.end("Ruta no encontrada");
+        response.writeHead(404, { "Content-Type": "text/plain" })
+        response.end("Ruta no encontrada")
         break;
     }
 
   }
 });
 
-server.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`))

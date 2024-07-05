@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 export const grabarArchivo = (nombreArchivo, contenido) => {
     fs.writeFile('./' + nombreArchivo, contenido, err => {
         if (err) {
-            console.log('Hubo un error: ', err);
+            console.log('Hubo un error al grabar Archivo: ', err);
         }
         console.log('Operación exitosa');
     })
@@ -13,7 +13,7 @@ export const grabarArchivo = (nombreArchivo, contenido) => {
 export const leerArchivo = async (nombreArchivo) => {
     return fs.readFile(nombreArchivo, 'utf-8', (err, data) => {
         if (err) {
-            console.log('Hubo un error: ', err);
+            console.log('Archivo no encontrado: ', err);
         }        
     })
 }
