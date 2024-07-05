@@ -1,16 +1,16 @@
-import path from "node:path";
-import fs from "node:fs/promises";
-import { usuarioGetAll, empleadosInsert } from "./repository.js";
-import { grabarArchivo, leerArchivo } from "./utility.js";
+import path from "node:path"
+import fs from "node:fs/promises"
+import { usuarioGetAll, empleadosInsert } from "./repository.js"
+import { grabarArchivo, leerArchivo } from "./utility.js"
 
 export const indexService = async (request, response) => {
   try {
-    const data = await fs.readFile("index.html");
-    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    response.write(data);
-    response.end();
+    const data = await fs.readFile("index.html")
+    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" })
+    response.write(data)
+    response.end()
   } catch (error) {
-    console.log("Ha sucedido un error al leer el archivo index" + error.message);
+    console.log("Ha sucedido un error al leer el archivo index" + error.message)
   }
 }
 
@@ -22,21 +22,21 @@ export const usuarioGetAllService = async (request, response) => {
     response.end(JSON.stringify(aUsuario))
   }
   catch (error) {
-    console.log("Ha sucedido un error al leer el archivo index" + error.message);
+    console.log("Ha sucedido un error al leer el archivo index" + error.message)
   }
 }
 
 export const usuarioExportCsvService = async (request, response) => {
   try {
-    const aUsuario = await usuarioGetAll()
-    let nomArchivo = "usuarios.csv"
-    let texto = "";
+    const aUsuario  = await usuarioGetAll()
+    let nomArchivo  = "usuarios.csv"
+    let texto       = "id,nombres,apellidos,direccion,correo,dni,edad,telefono,fecha_creacion\n"
 
     aUsuario.forEach(function (usuario) {
       Object.entries(usuario).forEach(([key, value]) => {
         texto += value + ","
-      });
-      texto = texto.substring(0, texto.length - 1) + "\n";
+      })
+      texto = texto.substring(0, texto.length - 1) + "\n"
     })
 
     grabarArchivo(nomArchivo, texto)
@@ -44,7 +44,7 @@ export const usuarioExportCsvService = async (request, response) => {
     response.writeHead(200, { "Content-Type": "text/plain" })
     response.end("Se ha grabado el archivo")
   } catch (error) {
-    console.log("Ha sucedido un error al leer el archivo index" + error.message);
+    console.log("Ha sucedido un error al leer el archivo index" + error.message)
   }
 }
 

@@ -1,2 +1,3 @@
-1,HANS JONATHAN,LLANOS CHAVEZ,PERU TABLADA,hans.llanos1@gmail.com,12345678,30,Fri Jul 05 2024 00:38:06 GMT-0500 (hora estándar de Perú),961287931
-2,HANS JONATHAN2,LLANOS CHAVEZ2,PERU TABLADA,hans.llanos2@gmail.com,12345677,30,Fri Jul 05 2024 00:38:06 GMT-0500 (hora estándar de Perú),961287931
+id,nombres,apellidos,direccion,correo,dni,edad,telefono,fecha_creacion
+1,HANS JONATHAN,LLANOS CHAVEZ,PERU TABLADA,hans.llanos1@gmail.com,12345678,30,961287931,Fri Jul 05 2024 00:51:39 GMT-0500 (hora estándar de Perú)
+2,HANS JONATHAN2,LLANOS CHAVEZ2,PERU TABLADA,hans.llanos2@gmail.com,12345677,30,961287931,Fri Jul 05 2024 00:51:39 GMT-0500 (hora estándar de Perú)
