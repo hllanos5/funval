@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "7910f537-0ac2-40f4-b4bb-84f7a4548320",
+		"name": "Funval",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11898375"
+	},
+	"item": [
+		{
+			"name": "dia9",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarEmpleados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/empleados",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportEmpleados",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/export",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "importEmpleados",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/import",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mini-proyecto",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarUsuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportUsuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/usuarios/export",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "importUsuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/usuarios/import",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
