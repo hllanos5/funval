@@ -87,7 +87,7 @@ userRoutes.put('/users/:id', (req, res) => {
 
 //Borrar usuario
 userRoutes.delete('/users/:id', (req, res) => {
-    const id = parent(req.params.id);
+    const id = parseInt(req.params.id);
     const index = users.findIndex(users => user.id === id );
     
     if (index<0) {

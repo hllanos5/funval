@@ -1,5 +1,6 @@
 import express from 'express'
 import {userRoutes} from './router/userRoutes.js'
+import {transactionRoutes} from './router/transactionRoutes.js'
 
 const app = express()
 app.use(express.json())
@@ -23,6 +24,7 @@ app.post('/users', (req, res) => {
 })
 */
 app.use(userRoutes)
+app.use(transactionRoutes)
 
 app.listen(3000, () => {
     console.log("host: http://localhost:3000")
