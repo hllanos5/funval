@@ -11,7 +11,7 @@ const aTask = [
     {
         id: 2,
         nombre : "Tarea 2",
-        email: "08/08/2024"
+        fecha: "08/08/2024"
     }
 ]
 
