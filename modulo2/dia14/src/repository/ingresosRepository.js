@@ -2,7 +2,7 @@ import { pool } from "../config/bd.js";
 
 export const obtenerIngresosPorUsuario = async (idUsuario) => {
   try {
-    let query = "select g.monto, c.descripcion, u.nombre from gastos g  inner join categorias c on  (g.categoria_id = c.id) inner join usuario u  on ( g.usuario_id = u.id) where u.id  = ?";
+    let query = "select * from ingresos where usuario_id = ?";
     const [rs] = await pool.execute(query,[idUsuario]);
     return rs;
   }
@@ -10,3 +10,24 @@ export const obtenerIngresosPorUsuario = async (idUsuario) => {
     console.log("Ha sucedido al ejecutar la consulta" + error.message);
   }
 }
+
+export const obtenerIngresosPorIdPorUsuarioId = async (id,idUsuario) => {
+    try {
+      let query = "select * from ingresos where id = ? and usuario_id = ?";
+      const [rs] = await pool.execute(query,[id, idUsuario]);
+      return rs;
+    }
+    catch (error) {
+      console.log("Ha sucedido al ejecutar la consulta" + error.message);
+    }
+  }
+
+  export const insertarIngresos = async (usuarioId, monto, descripcion) => {
+    try {
+      let query = "INSERT INTO ingresos (usuario_id, monto, descripcion) VALUES (?, ?, ?)";
+      await pool.execute(query,[usuarioId, monto, descripcion]);      
+    }
+    catch (error) {
+      console.log("Ha sucedido al ejecutar la consulta" + error.message);
+    }
+  }
