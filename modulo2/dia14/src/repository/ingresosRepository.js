@@ -2,12 +2,13 @@ import { pool } from "../config/bd.js";
 
 export const obtenerIngresosPorUsuario = async (idUsuario) => {
   try {
-    let query = "selectc * from ingresos where usuario_id = ?";
+    let query = "select * from ingresos where usuario_id = ?";
     const [rs] = await pool.execute(query, [idUsuario]);
-    return rs;
+    const rpta = {status: 200, oContenido: rs}
+    return rpta;
   }
   catch (error) {
-    throw {message:"Ha Ocurrido un error", status: 401}
+    throw {message:error.message, status: 401}
   }
 }
 

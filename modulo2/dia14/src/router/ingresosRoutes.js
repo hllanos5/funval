@@ -4,16 +4,16 @@ import {obtenerIngresosPorUsuario, obtenerIngresosPorIdPorUsuarioId, insertarIng
 export const ingresosRoutes = Router()
 
 // Obtener Ingresos por usuario
-ingresosRoutes.get('/:usuarioId', async (req, res) => {
+ingresosRoutes.get('/', async (req, res) => {
     
     try {
-        console.log("Mi consulta");
-        const {params, query, body} = req;
+        const {params, query, body, headers} = req;
+        
+        const usuarioId = parseInt(headers.usuarioid);
+        const oRpta = await obtenerIngresosPorUsuario(usuarioId)
 
-        const usuarioId = parseInt(req.params.usuarioId);
-        const aIngresos = await obtenerIngresosPorUsuario(usuarioId)
+        res.status(oRpta.status).json(oRpta.oContenido);
 
-        res.status(200).json(aIngresos);
     } catch (error) {
         res.status(error.status).json({message: error.message});
     }
