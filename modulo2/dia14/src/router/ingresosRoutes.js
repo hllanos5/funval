@@ -4,18 +4,23 @@ import {obtenerIngresosPorUsuario, obtenerIngresosPorIdPorUsuarioId, insertarIng
 export const ingresosRoutes = Router()
 
 // Obtener Ingresos por usuario
-ingresosRoutes.get('/ingresos/:usuarioId', async (req, res) => {
+ingresosRoutes.get('/:usuarioId', async (req, res) => {
     
-    const {params, query, body} = req;
+    try {
+        console.log("Mi consulta");
+        const {params, query, body} = req;
 
-    const usuarioId = parseInt(req.params.usuarioId);
-    const aIngresos = await obtenerIngresosPorUsuario(usuarioId)
+        const usuarioId = parseInt(req.params.usuarioId);
+        const aIngresos = await obtenerIngresosPorUsuario(usuarioId)
 
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end(JSON.stringify(aIngresos));
+        res.status(200).json(aIngresos);
+    } catch (error) {
+        res.status(error.status).json({message: error.message});
+    }
+    
 })
 
-ingresosRoutes.get('/ingresos/:usuarioId/:id', async (req, res) => {
+ingresosRoutes.get('/:usuarioId/:id', async (req, res) => {
     
     const id = parseInt(req.params.id);
     const usuarioId = parseInt(req.params.usuarioId);
@@ -26,7 +31,7 @@ ingresosRoutes.get('/ingresos/:usuarioId/:id', async (req, res) => {
     res.end(JSON.stringify(aIngresos));
 })
 
-ingresosRoutes.post('/ingresos/:usuarioId', async (req, res) => {
+ingresosRoutes.post('/:usuarioId', async (req, res) => {
 
     try {
         const usuarioId = parseInt(req.params.usuarioId);
@@ -44,7 +49,7 @@ ingresosRoutes.post('/ingresos/:usuarioId', async (req, res) => {
 
 })
 
-ingresosRoutes.put('/ingresos/:usuarioId/:id', async (req, res) => {
+ingresosRoutes.put('/:usuarioId/:id', async (req, res) => {
 
     try {
 
@@ -68,7 +73,7 @@ ingresosRoutes.put('/ingresos/:usuarioId/:id', async (req, res) => {
     
 })
 
-ingresosRoutes.delete('/ingresos/:usuarioId/:id', async (req, res) => {
+ingresosRoutes.delete('/:usuarioId/:id', async (req, res) => {
 
     try {
         const {params} = req
