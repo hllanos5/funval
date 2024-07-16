@@ -1,32 +1,24 @@
 import express from 'express';
-import multer from 'multer';
+import {borrarArchivo, uploadFileMulter} from './util/utility.js';
 
 const app = express ();
 const port = 3000;
 const host = 'http://localhost:3000';
 
-const  MIMETYPE = ["image/jpeg","application/pdf","image/png"]
-
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-
-    filename: function(req, file, cb) {
-        const uniqueSuffix = Date.now()+ '-' + file.originalname
-        cb(null, uniqueSuffix)
-    }
-})
-
-const upload = multer({ storage: storage });
-
 app.use(express.json());
 
-app.post("/upload", upload.single("file"), (req, res, next ) => {
-    console.log("Hola");
+app.post("/upload", uploadFileMulter.single("file"), (req, res, next ) => {
     res.json(req.file);
-    
+})
+
+app.post("/delete-file",async (req, res, next ) => {
+    let dato = await borrarArchivo(req.body.fileName)
+    if(dato){
+        res.json({respuesta: "Borrado Exitoso"});
+    }
+    else {
+        res.json({respuesta: "Hubo un problema con el borrado"});
+    }
 })
 
 app.listen(port, ()=> {
