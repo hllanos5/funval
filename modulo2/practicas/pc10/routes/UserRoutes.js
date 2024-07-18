@@ -1,6 +1,6 @@
 
 import { Router } from 'express'
-import { listarUsuario, listarUsuarioConRoles, obtenerUsuarioConRoles, crearUsuario } from '../controller/UsersController.js'
+import { listarUsuario, listarUsuarioConRoles, obtenerUsuarioConRoles, crearUsuario, modificarUsuario } from '../controller/UsersController.js'
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
 
 export const userRoutes = Router()
@@ -66,8 +66,18 @@ userRoutes.post('/', async (req, res, next) => {
 })
 
 //Actualiza el usuario
-userRoutes.put('/:id', (req, res, next) => {
-    res.json({ message: "Actualizar usuario" })
+userRoutes.put('/:id', async (req, res, next) => {
+    try {
+        const oRespuesta = await modificarUsuario(req);
+        if (oRespuesta.codigo === CODIGO_OK) {
+            return res.status(200).json(oRespuesta);
+        }
+        else {
+            return res.status(400).json(oRespuesta);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: error.message, codigo: CODIGO_ERROR})
+    }
 })
 
 

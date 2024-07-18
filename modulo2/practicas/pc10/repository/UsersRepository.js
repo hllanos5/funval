@@ -40,7 +40,7 @@ const obtenerUsuarioConRolesRepository = async (req) => {
 }
 
 
-// metodo para obtener un usuario con roles
+// metodo para crear un usuario
 const crearUsuarioRepository = async (req) => {
     try {
         const { body: { nombre, email, password, id_rol } } = req;
@@ -53,4 +53,17 @@ const crearUsuarioRepository = async (req) => {
     }
 }
 
-export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository}
+// metodo para modificar un usuario 
+const modificarUsuarioRepository = async (req) => {
+    try {
+        const { body: { nombre, email, password, id_rol }, params: {id} } = req;
+        const sql = 'UPDATE usuarios SET nombre = ?, email = ?, password = ?, id_rol = ? WHERE id_usuario= ? ';
+        await pool.execute(sql, [nombre, email, password, id_rol, id]);
+
+        return {mensaje: MENSAJE_OK, codigo: CODIGO_OK};
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
+export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository, modificarUsuarioRepository}
