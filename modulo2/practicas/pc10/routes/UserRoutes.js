@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import { listarUsuario, listarUsuarioConRoles, obtenerUsuarioConRoles, crearUsuario, modificarUsuario, eliminarUsuario, modificarUsuarioImagen } from '../controller/UsersController.js'
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
-import {uploadFileMulter} from '../util/Utility.js';
+import { uploadFileMulter } from '../util/Utility.js';
 
 export const userRoutes = Router()
 
