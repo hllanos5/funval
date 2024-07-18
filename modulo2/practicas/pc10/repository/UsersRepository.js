@@ -66,4 +66,17 @@ const modificarUsuarioRepository = async (req) => {
     }
 }
 
-export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository, modificarUsuarioRepository}
+// metodo para eliminar un usuario 
+const eliminarUsuarioRepository = async (req) => {
+    try {
+        const { params: { id } } = req;
+        const sql = 'DELETE FROM usuarios WHERE id_usuario= ? ';
+        await pool.execute(sql, [id]);
+
+        return {mensaje: MENSAJE_OK, codigo: CODIGO_OK};
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
+export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository, modificarUsuarioRepository, eliminarUsuarioRepository}
