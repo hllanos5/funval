@@ -1,7 +1,6 @@
 import pool from '../bd/Pool.js'
 
 const listarRol = async (req, res) => {
-
     console.log(req.headers.user_id);
 
     const useSql = "select id_rol FROM usuarios WHERE id_usuario = ?";
