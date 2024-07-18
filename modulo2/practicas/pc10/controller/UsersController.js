@@ -1,4 +1,4 @@
-import { listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository } from "../repository/UsersRepository.js"
+import { listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository } from "../repository/UsersRepository.js"
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
 
 export const listarUsuario = async (req, res) => {
@@ -25,6 +25,16 @@ export const obtenerUsuarioConRoles = async (req, res) => {
 
     try {
         const oRespuesta = await obtenerUsuarioConRolesRepository(req);
+        return oRespuesta;
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
+export const crearUsuario = async (req, res) => {
+
+    try {
+        const oRespuesta = await crearUsuarioRepository(req);
         return oRespuesta;
     } catch (error) {
         return {mensaje: error.message, codigo: CODIGO_ERROR}

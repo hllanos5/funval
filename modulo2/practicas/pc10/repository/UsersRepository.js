@@ -1,12 +1,14 @@
 import pool from "../bd/Pool.js"
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
+import { MENSAJE_OK} from '../config/MensajesConfig.js';
 
 /* metodo para listar usuario */
 const listarUsuarioRepository = async () => {
     try {
         const sql = 'SELECT * FROM usuarios';
         const [rs] = await pool.execute(sql);
-        return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
+
+        return {resultado: rs, mensaje: MENSAJE_OK, codigo: CODIGO_OK};
     } catch (error) {
         return {mensaje: error.message, codigo: CODIGO_ERROR}
     }
@@ -17,7 +19,8 @@ const listarUsuarioConRolesRepository = async () => {
     try {
         const sql = 'select u.*, r.id_rol,r.nombre_rol from usuarios u inner join roles r on (u.id_rol = r.id_rol)';
         const [rs] = await pool.execute(sql);
-        return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
+
+        return {resultado: rs, mensaje: MENSAJE_OK, codigo: CODIGO_OK};
     } catch (error) {
         return {mensaje: error.message, codigo: CODIGO_ERROR}
     }
@@ -29,22 +32,25 @@ const obtenerUsuarioConRolesRepository = async (req) => {
         const {params, query, body, headers} = req;
         const sql = 'select u.*, r.id_rol,r.nombre_rol from usuarios u inner join roles r on (u.id_rol = r.id_rol) WHERE u.id_usuario = ?';
         const [rs] = await pool.execute(sql, [params.id]);
-        return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
+
+        return {resultado: rs, mensaje: MENSAJE_OK, codigo: CODIGO_OK};
     } catch (error) {
         return {mensaje: error.message, codigo: CODIGO_ERROR}
     }
 }
 
 
+// metodo para obtener un usuario con roles
 const crearUsuarioRepository = async (req) => {
     try {
-        const { body: { nombre, email, password } } = req;
-        const sql = 'INSERT INTO users (`nombre`, `email`, `password`) VALUES (?,?,?)';
-        await pool.execute(sql, [nombre, email, password]);
-        return { success: "user created successfully" }
+        const { body: { nombre, email, password, id_rol } } = req;
+        const sql = 'INSERT INTO usuarios (`nombre`, `email`, `password`, `id_rol`) VALUES (?,?,?,?)';
+        await pool.execute(sql, [nombre, email, password, id_rol]);
+
+        return {mensaje: MENSAJE_OK, codigo: CODIGO_OK};
     } catch (error) {
-        throw error
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
     }
 }
 
-export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository}
+export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository}
