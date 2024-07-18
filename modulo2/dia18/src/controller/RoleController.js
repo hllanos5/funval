@@ -1,6 +1,7 @@
 import pool from '../bd/Pool.js'
 
 const listarRol = async (req, res) => {
+    //#swagger.tags = ['Roles']
     console.log(req.headers.user_id);
 
     const useSql = "select id_rol FROM usuarios WHERE id_usuario = ?";
@@ -21,4 +22,14 @@ const listarRol = async (req, res) => {
     }
 }
 
-export { listarRol } 
+const obtenerRol = (req, res) => {
+    try {
+        res.json({sucess: "obtenerRol"});
+    }   
+    catch (error){
+        
+        res.json({ error: error.message });
+    }
+}
+
+export { listarRol, obtenerRol } 
