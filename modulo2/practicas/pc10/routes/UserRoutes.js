@@ -1,6 +1,6 @@
 
 import { Router } from 'express'
-import { listarUsuario, listarUsuarioAndRoles } from '../controller/UsersController.js'
+import { listarUsuario, listarUsuarioConRoles, obtenerUsuarioConRoles } from '../controller/UsersController.js'
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
 
 export const userRoutes = Router()
@@ -21,9 +21,9 @@ userRoutes.get('/', async (req, res, next) => {
 })
 
 //Muestra todos los usuarios y roles
-userRoutes.get('/user-rol', async (req, res, next) => {
+userRoutes.get('/users-rol', async (req, res, next) => {
     try {
-        const oRespuesta = await listarUsuarioAndRoles();
+        const oRespuesta = await listarUsuarioConRoles();
         if (oRespuesta.codigo === CODIGO_OK) {
             return res.status(200).json(oRespuesta);
         }
@@ -36,8 +36,18 @@ userRoutes.get('/user-rol', async (req, res, next) => {
 })
 
 //Muestra un usuario
-userRoutes.get('/:id', (req, res, next) => {
-    res.json({ show: "one useres" })
+userRoutes.get('/:id', async (req, res, next) => {
+    try {
+        const oRespuesta = await obtenerUsuarioConRoles(req);
+        if (oRespuesta.codigo === CODIGO_OK) {
+            return res.status(200).json(oRespuesta);
+        }
+        else {
+            return res.status(400).json(oRespuesta);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: error.message, codigo: CODIGO_ERROR})
+    }
 })
 
 //Insertar Usuario

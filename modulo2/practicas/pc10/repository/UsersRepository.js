@@ -13,7 +13,7 @@ const listarUsuarioRepository = async () => {
 }
 
 // metodo para listar usuario con roles
-const listarUsuarioAndRolesRepository = async () => {
+const listarUsuarioConRolesRepository = async () => {
     try {
         const sql = 'select u.*, r.id_rol,r.nombre_rol from usuarios u inner join roles r on (u.id_rol = r.id_rol)';
         const [rs] = await pool.execute(sql);
@@ -22,6 +22,19 @@ const listarUsuarioAndRolesRepository = async () => {
         return {mensaje: error.message, codigo: CODIGO_ERROR}
     }
 }
+
+// metodo para obtener un usuario con roles
+const obtenerUsuarioConRolesRepository = async (req) => {
+    try {
+        const {params, query, body, headers} = req;
+        const sql = 'select u.*, r.id_rol,r.nombre_rol from usuarios u inner join roles r on (u.id_rol = r.id_rol) WHERE u.id_usuario = ?';
+        const [rs] = await pool.execute(sql, [params.id]);
+        return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
 
 const crearUsuarioRepository = async (req) => {
     try {
@@ -34,4 +47,4 @@ const crearUsuarioRepository = async (req) => {
     }
 }
 
-export  { crearUsuarioRepository, listarUsuarioAndRolesRepository, listarUsuarioRepository}
+export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository}
