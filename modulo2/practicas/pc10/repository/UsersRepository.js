@@ -1,11 +1,21 @@
 import pool from "../bd/Pool.js"
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
 
-/* metodo para crear usuarios */
-
+/* metodo para listar usuario */
 const listarUsuarioRepository = async () => {
     try {
         const sql = 'SELECT * FROM usuarios';
+        const [rs] = await pool.execute(sql);
+        return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
+// metodo para listar usuario con roles
+const listarUsuarioAndRolesRepository = async () => {
+    try {
+        const sql = 'select u.*, r.id_rol,r.nombre_rol from usuarios u inner join roles r on (u.id_rol = r.id_rol)';
         const [rs] = await pool.execute(sql);
         return {resultado: rs, mensaje: "Ok", codigo: CODIGO_OK};
     } catch (error) {
@@ -24,4 +34,4 @@ const crearUsuarioRepository = async (req) => {
     }
 }
 
-export  { crearUsuarioRepository, listarUsuarioRepository}
+export  { crearUsuarioRepository, listarUsuarioAndRolesRepository, listarUsuarioRepository}

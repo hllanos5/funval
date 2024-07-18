@@ -1,6 +1,6 @@
 
 import { Router } from 'express'
-import { listarUsuario } from '../controller/UsersController.js'
+import { listarUsuario, listarUsuarioAndRoles } from '../controller/UsersController.js'
 import { CODIGO_OK, CODIGO_ERROR } from '../config/CodigosConfig.js';
 
 export const userRoutes = Router()
@@ -9,6 +9,21 @@ export const userRoutes = Router()
 userRoutes.get('/', async (req, res, next) => {
     try {
         const oRespuesta = await listarUsuario();
+        if (oRespuesta.codigo === CODIGO_OK) {
+            return res.status(200).json(oRespuesta);
+        }
+        else {
+            return res.status(400).json(oRespuesta);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: error.message, codigo: CODIGO_ERROR})
+    }
+})
+
+//Muestra todos los usuarios y roles
+userRoutes.get('/user-rol', async (req, res, next) => {
+    try {
+        const oRespuesta = await listarUsuarioAndRoles();
         if (oRespuesta.codigo === CODIGO_OK) {
             return res.status(200).json(oRespuesta);
         }
