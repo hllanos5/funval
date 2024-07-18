@@ -79,4 +79,20 @@ const eliminarUsuarioRepository = async (req) => {
     }
 }
 
-export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository, crearUsuarioRepository, modificarUsuarioRepository, eliminarUsuarioRepository}
+// metodo para actualizar usuario imagen 
+const modificarImagenUsuarioRepository = async (req) => {
+    try {
+        
+        const {params, file} = req;
+        console.log(params, file);
+        const sql = 'UPDATE usuarios SET imagen = ? WHERE id_usuario= ? ';
+        await pool.execute(sql, [file.filename,params.id]);
+
+        return {mensaje: MENSAJE_OK, codigo: CODIGO_OK};
+    } catch (error) {
+        return {mensaje: error.message, codigo: CODIGO_ERROR}
+    }
+}
+
+export  {listarUsuarioRepository, listarUsuarioConRolesRepository, obtenerUsuarioConRolesRepository,
+        crearUsuarioRepository, modificarUsuarioRepository, eliminarUsuarioRepository, modificarImagenUsuarioRepository}
