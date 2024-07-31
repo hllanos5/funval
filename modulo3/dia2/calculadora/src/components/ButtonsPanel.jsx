@@ -27,7 +27,7 @@ export function ButtonsPanel({display, setDisplay}) {
                 return;
             }
             if(target.value === '='){
-                console.log("Es =");
+                setDisplay(eval(display));
                 return;
             }
 
