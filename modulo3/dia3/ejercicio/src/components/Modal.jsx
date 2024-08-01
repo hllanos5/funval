@@ -1,7 +1,7 @@
 import { InputModal } from "./InputModal";
 import { Titulo2 } from "./Titulo2"
 
-export function Modal() {
+export function Modal ({toggleModal}) {
     
     let titulo = "Agregar Contacto";
     let aInput = [
@@ -13,7 +13,7 @@ export function Modal() {
     return (
         <div id="modal" className="modal">
             <div className="modal-content">
-                <span className="close">&times;</span>
+                <span className="close" onClick={toggleModal}>&times;</span>
                 <Titulo2 texto={titulo}/>
                 <form id="contactForm">
                 {

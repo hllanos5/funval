@@ -4,12 +4,20 @@ import { Modal } from './components/Modal'
 
 function App() {
 
-  const [contacts, setContacts] = useState([]);
-  
+  const [contacts, setContacts]   = useState([{id:1,nombre:"Juan Perez", correo: "juan@example.com", numero:"123-456-7890", clasePadre:"contact", claseNombre:"name", claseDetalle: "details"}]);
+  const [isVisible, setIsVisible] = useState(false);
+
+  function toggleModal(){
+    setIsVisible(!isVisible);
+  }
+
   return (
     <>    
-    <Contenido/>
-    <Modal/>
+      <Contenido toggleModal={toggleModal} aContacto={contacts} />
+      {isVisible &&
+        <Modal toggleModal={toggleModal}/>
+      }
+      
     </>
   )
 }
