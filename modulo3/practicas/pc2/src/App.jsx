@@ -1,15 +1,11 @@
-import { useState } from 'react'
+import { React } from 'react'
+import {Cabecera} from './components/Cabecera'
 
 function App() {
 
   return (
     <>
-      <div className='cabecera'>
-        <h1 className='titulo-1'>Reliable, efficient delivery</h1>
-        <h1 className='titulo-2'>Powered by Technology</h1>
-        <div className='sub-titulo'>Our Artifical Intelligence powered tools use millions of project data</div>
-        <div className='sub-titulo'>points to ensure that your project is successful</div>
-      </div>
+      <Cabecera/>
       <div className='cuerpo'>
         <div className='caja border-superior-verde'>
           <h1>Supervisor</h1>
