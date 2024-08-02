@@ -1,13 +1,17 @@
 import { useState } from 'react'
+import { InputComponent } from './components/shared/InputComponent';
 
 function App() {
+
+  let oInput = {identificador: "input-bill", clase:"input-bill", tipo:"number",  minimo:"0"};
+
   return (
     <>
      <header><img src="./images/logo.svg" alt=""/></header>
       <div className="general-wrapper">
         <div className="data-wrapper">
-          <h1>Bill</h1><label for="input-bill"><input className="input-bill" id="input-bill" type="number" value="0"
-              min="0"/></label>
+          <h1>Bill</h1>
+          <InputComponent input={oInput}/>
           <h2>Select Tip %</h2>
           <ul>
             <li id="percentage-5"><button type="button" className="percentage-button" value="5">5%</button></li>
@@ -17,7 +21,7 @@ function App() {
             <li id="percentage-50"><button type="button" className="percentage-button" value="50">50%</button></li>
             <li><input type="number" placeholder="Custom" id="custom-percentage-button" className="percentage-button"/></li>
           </ul>
-          <h2>Number of People</h2><label for="input-people"><input id="input-people" className="input-people" type="number"
+          <h2>Number of People</h2><label htmlFor="input-people"><input id="input-people" className="input-people" type="number"
               value="1" min="1"/></label>
         </div>
         <div className="result-wrapper">
