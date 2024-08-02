@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { InputComponent } from './components/shared/InputComponent';
+import { Input } from './components/shared/Input';
+import { Button } from './components/shared/Button';
 
 const emptyValues = {
   tip:0,
@@ -40,29 +41,33 @@ function App() {
   },[values]);
 
   /* {F} - Logica para la calculadora*/
-
-  let oInput = {identificador: "input-bill", clase:"input-bill", tipo:"number",  minimo:"0"};
-
+  
+  /* {I} - Llenado de componentes*/ 
+  let oInput1 = {identificador: "input-bill", name:"bill", clase:"input-bill", tipo:"number", value:"0", minimo:"0"};
+  let oInput2 = {identificador: "input-people", name:"people", clase:"input-people", tipo:"number", value:"0", minimo:"1"};
+  
+  let aBotones = [
+    {porcentaje:5,  type:"button", name:"tip", clase: "percentage-button"},
+    {porcentaje:10, type:"button", name:"tip", clase: "percentage-button"},
+    {porcentaje:15, type:"button", name:"tip", clase: "percentage-button"},
+    {porcentaje:25, type:"button", name:"tip", clase: "percentage-button"},
+    {porcentaje:50, type:"button", name:"tip", clase: "percentage-button"},
+  ]
+  /* {F} - Llenado de componentes*/
   return (
     <>
      <header><img src="./images/logo.svg" alt=""/></header>
       <div className="general-wrapper">
         <div className="data-wrapper">
           <h1>Bill</h1>
-          <label htmlFor="input-bill">
-              <input className="input-bill" name="bill" id="input-bill" type="number" value={values.bill} min="0" onChange={handleInput}/>
-          </label>
+          <Input input={oInput1} valor={values.bill} handleInput={handleInput}/>
           <h2>Select Tip %</h2>
           <ul>
-            <li id="percentage-5"><button type="button"  onClick={handleInput} name="tip" className={`percentage-button ${values.tip === "5" && 'active'}`} value="5">5%</button></li>
-            <li id="percentage-10"><button type="button" onClick={handleInput} name="tip" className={`percentage-button ${values.tip === "10" && 'active'}`}  value="10">10%</button></li>
-            <li id="percentage-15"><button type="button" onClick={handleInput} name="tip" className={`percentage-button ${values.tip === "15" && 'active'}`}  value="15">15%</button></li>
-            <li id="percentage-25"><button type="button" onClick={handleInput} name="tip" className={`percentage-button ${values.tip === "25" && 'active'}`}  value="25">25%</button></li>
-            <li id="percentage-50"><button type="button" onClick={handleInput} name="tip" className={`percentage-button ${values.tip === "50" && 'active'}`}  value="50">50%</button></li>
+            <Button aButton={aBotones} valor= {values.tip} handleInput={handleInput}/>
             <li><input type="number" placeholder="Custom" id="custom-percentage-button" className="percentage-button"/></li>
           </ul>
-          <h2>Number of People</h2><label htmlFor="input-people"><input id="input-people" className="input-people" name="people" type="number"
-              value={values.people} min="1" onChange={handleInput}/></label>
+          <h2>Number of People</h2>
+          <Input input={oInput2} valor={values.people} handleInput={handleInput}/>
         </div>
         <div className="result-wrapper">
           <div className="result-txt">
