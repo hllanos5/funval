@@ -188,3 +188,10 @@ td > button{
   margin: 0 auto;
   padding: 1px 4px;
 }
+
+.pagada {
+  color: #00ce00;
+}
+.pendiete {
+  color: #ff0000;
+}
