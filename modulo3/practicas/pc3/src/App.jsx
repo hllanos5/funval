@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Input } from './components/shared/Input';
-import { Button } from './components/shared/Button';
+import { PanelIzquierda } from './components/PanelIzquierda';
+import { PanelDerecha } from './components/PanelDerecha';
 
 const emptyValues = {
   tip:0,
@@ -24,7 +24,7 @@ function App() {
 
   function reset() {
     setTotals(emptyTotal);
-    setTotals(emptyValues);
+    setValues(emptyValues);
   }
 
   useEffect(()=>{
@@ -45,6 +45,7 @@ function App() {
   /* {I} - Llenado de componentes*/ 
   let oInput1 = {identificador: "input-bill", name:"bill", clase:"input-bill", tipo:"number", value:"0", minimo:"0"};
   let oInput2 = {identificador: "input-people", name:"people", clase:"input-people", tipo:"number", value:"0", minimo:"1"};
+  let oInput3 = {identificador: "custom-percentage-button", name:"tip", clase:"input-people", tipo:"number", value:"", minimo:"1"};
   
   let aBotones = [
     {porcentaje:5,  type:"button", name:"tip", clase: "percentage-button"},
@@ -58,35 +59,8 @@ function App() {
     <>
      <header><img src="./images/logo.svg" alt=""/></header>
       <div className="general-wrapper">
-        <div className="data-wrapper">
-          <h1>Bill</h1>
-          <Input input={oInput1} valor={values.bill} handleInput={handleInput}/>
-          <h2>Select Tip %</h2>
-          <ul>
-            <Button aButton={aBotones} valor= {values.tip} handleInput={handleInput}/>
-            <li><input type="number" placeholder="Custom" id="custom-percentage-button" className="percentage-button"/></li>
-          </ul>
-          <h2>Number of People</h2>
-          <Input input={oInput2} valor={values.people} handleInput={handleInput}/>
-        </div>
-        <div className="result-wrapper">
-          <div className="result-txt">
-            <div className="text-amount">
-              <div>
-                <h2>Tip Amount</h2>
-                <p>/ person</p>
-              </div>
-              <h3>$<span id="tip-amount">{totals.totalTip}</span></h3>
-            </div>
-            <div className="total-amount">
-              <div>
-                <h2>Total</h2>
-                <p>/ person</p>
-              </div>
-              <h3>$<span id="total">{totals.totalAmount}</span></h3>
-            </div>
-          </div><button type="button" id="reset-button" className="reset-button" onClick={reset}>RESET</button>
-        </div>
+      <PanelIzquierda oInput1={oInput1}  oInput2= {oInput2}  aBotones={aBotones} values={values} handleInput={handleInput}/>
+      <PanelDerecha totals={totals} reset={reset}/>
       </div>
     </>
   )
