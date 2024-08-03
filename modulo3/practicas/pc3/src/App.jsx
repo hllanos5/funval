@@ -4,6 +4,7 @@ import { PanelDerecha } from './components/PanelDerecha';
 
 const emptyValues = {
   tip:0,
+  tipCustomize: 0,
   bill:0,
   people:0
 }
@@ -19,23 +20,34 @@ function App() {
   const[totals, setTotals] = useState(emptyTotal);
 
   function handleInput(e){
+
+    if(e.target.type === "button"){
+      document.querySelector("#custom-percentage-button").value = "";
+    }
     setValues({...values,[e.target.name]:e.target.value});
   }
 
   function reset() {
     setTotals(emptyTotal);
     setValues(emptyValues);
+    document.querySelector("#custom-percentage-button").value = "";
   }
 
   useEffect(()=>{
     const{bill, tip, people} = values;
 
     if(bill>0 && tip > 0 && people> 0){
+      document.querySelector("#reset-button").removeAttribute("disabled");
+      document.querySelector("#reset-button").classList.add("habilitado");
 
       const totalTip = (parseFloat(bill) * (parseFloat(tip)/100 )) / parseInt(people);
       const totalAmount = (parseFloat(bill)/parseInt(people)) + totalTip;
 
       setTotals({totalTip, totalAmount});
+    }
+    else{
+      document.querySelector("#reset-button").setAttribute("disabled","disabled");
+      document.querySelector("#reset-button").classList.remove("habilitado");;
     }
     
   },[values]);

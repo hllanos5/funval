@@ -12,7 +12,7 @@ export function PanelIzquierda({oInput1, oInput2, aBotones, values, handleInput}
           <ul>
             <Button aButton={aBotones} valor= {values.tip} handleInput={handleInput}/>
             <li>
-              <input type="number" placeholder="Custom" id="custom-percentage-button" className="percentage-button" onChange={handleInput}/>
+              <input type="number" name="tip" placeholder="Custom" id="custom-percentage-button" className="percentage-button" onChange={handleInput}/>
             </li>
           </ul>
           <h2>Number of People</h2>

@@ -183,4 +183,7 @@ input:focus {
   border: 2px solid orangered;
 }
 
- 
+.habilitado{
+  cursor: pointer;
+  background-color: var(--primary);
+ }
