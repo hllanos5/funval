@@ -1,0 +1,58 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 2rem;
+}
+ul {
+  list-style: none;
+}
+.book_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  gap: 1rem;
+  place-content: center;
+}
+
+.book_item {
+  width: 100%;
+  height: fit-content;
+
+  figure {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.book_details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+
+  h3 {
+    text-align: center;
+    font-weight: 600;
+  }
+  h4 {
+    font-weight: 500;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.details_title {
+  font-weight: 600;
+
+}
