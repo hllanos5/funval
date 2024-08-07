@@ -1,0 +1,43 @@
+body{
+    font-family: "Roboto", sans-serif;
+}
+nav {
+    display: flex;
+    padding: 1.5rem;
+    align-items: center;
+    justify-content: end;
+    gap: 2rem;
+    .panel-busqueda {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        height: 3rem;
+        border:1px groove #F2F2F2;
+        padding-inline: 1rem;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border-radius: .5rem;
+
+        div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-inline: .5rem;
+        }
+
+        .buscador{
+            border-inline: 1px groove #F2F2F2;
+        }
+        input {
+            height: 100%;
+            width: 120px;
+            outline: none;
+            border: none;
+        }    
+        .buscar {
+            cursor: pointer;
+            color: red;
+        }
+
+    }
+  
+  }
