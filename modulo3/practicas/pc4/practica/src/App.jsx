@@ -5,7 +5,6 @@ import Nav from './components/Nav';
 function App() {
   const [data, setData] = useState([])
   const [users, setUsers] = useState([]);
-  const [search, setSearch] = useState("");
 
     async function getData() {
         let rs = await fetch('https://jsonplaceholder.typicode.com/users');
