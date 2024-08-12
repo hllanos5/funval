@@ -1,0 +1,52 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+ul{
+  list-style: none;
+}
+.main-nav{
+  display: flex;
+  justify-content: space-between;
+  /*padding-inline: 1rem;
+  padding-block: .5rem;*/
+  padding: .5rem 1rem;
+  align-items: center;
+}
+.nav-option{
+  display: flex;
+  gap:.5rem;
+
+}
+.nav-item a{
+    color:black;
+    &:hover {
+      color: blue;
+      text-decoration: underline;
+    }  
+}
+.company-logo{
+  width: 5rem;
+  height: 5rem;
+  img{
+    width: 100%;
+  }
+}
+
+/*Main*/
+
+main{
+  padding: .5rem 2rem;
+}
+
+/*Product*/
+.product-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  gap: 1rem;
+  place-content: center;
+}
