@@ -47,7 +47,7 @@ nav {
 .panel-busqueda-modal{
     position: absolute;
     top: 1px;
-    width: 100%;
+    width: 95%;
     height: 500px;
     background-color: white;
 
@@ -55,12 +55,11 @@ nav {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 3rem;
-        border:1px groove red;
         padding-top: 5rem;
         padding-inline: 5rem;
         height: auto;
-        .location, .guest {
-            .input-location, .input-guest {
+        .location {
+            .input-location {
                 display: flex;
                 flex-direction: column;    
                 border:1px solid #f3f3f3;
@@ -82,11 +81,49 @@ nav {
                     cursor: pointer;
                 }
             }
+            ul{
+                margin-top: 2rem;
+                display: flex;
+                flex-direction: column;
+                row-gap: 2rem;
+                margin-left: 3rem;
+                li{
+                   display: flex;
+                   gap: .5rem;
+                   align-items: center;
+                   
+                }
+            }
 
+        }
+        .guest{
+            .input-guest{
+                display: flex;
+                flex-direction: column;    
+                border:1px solid #f3f3f3;
+                border-radius: 10px;
+                padding-inline: 2rem;
+                padding-block: .5rem;
+                cursor: pointer;
+                row-gap: .2rem;
+
+                span {
+                    font-size: 11px;
+                    font-weight: bold;
+                }
+                input {
+                    outline: none;
+                    border: none;
+                    background: none;
+                    margin-left: -2px;
+                    cursor: pointer;
+                }
+            }
         }
         .panel-buscar {
             button {
-                display: flex;
+                display: none;
+                display: none;
                 align-items: center;
                 justify-content: center;
                 height: 90%;

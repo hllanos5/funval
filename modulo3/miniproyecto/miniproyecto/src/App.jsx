@@ -29,13 +29,39 @@ function App() {
           <div className='location'>
             <div className='input-location'>
               <span>LOCATION</span>
-              <input type="text" value="Helsinki, Finland" disabled="true"/>
+              <input type="text" value="Helsinki, Finland" disabled/>
             </div>
+            <ul>
+              <li>
+                <span className="material-symbols-outlined">
+                  location_on
+                </span>
+                Helsinki, Finland
+              </li>
+              <li>
+                <span className="material-symbols-outlined">
+                  location_on
+                </span>
+                Helsinki, Finland
+              </li>
+              <li>
+                <span className="material-symbols-outlined">
+                  location_on
+                </span>
+                Helsinki, Finland
+              </li>
+              <li>
+                <span className="material-symbols-outlined">
+                  location_on
+                </span>
+                Helsinki, Finland
+              </li>
+            </ul>
           </div>
           <div className='guest'>
             <div className='input-guest'>
               <span>GUESTS</span>
-              <input type="text" placeholder='Add guests' disabled="true"/>
+              <input type="text" placeholder='Add guests' disabled/>
             </div>
           </div>
           <div className='panel-buscar'>
