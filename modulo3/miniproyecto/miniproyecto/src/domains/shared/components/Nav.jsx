@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function Nav() {
+export function Nav({toggleModal}) {
   return (
     <nav>
         <div className='panel-busqueda'>
@@ -8,7 +8,7 @@ export function Nav() {
             <div className='buscador'>
             <input type="text" placeholder='Add guests'/>
         </div>
-        <div className='buscar'>
+        <div className='buscar' onClick={toggleModal}>
             <span className="material-symbols-outlined">
             search
             </span>

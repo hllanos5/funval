@@ -158,12 +158,11 @@ nav {
         }
         .panel-buscar {
             button {
-                display: none;
-                display: none;
+                display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 90%;
-                width: 100px;
+                height: 48px;
+                width: 140px;
                 background-color: #eb5757;
                 color: white;
                 border: none;
@@ -230,10 +229,8 @@ nav {
             }
             
         }
-   }
-    
+   }    
 }
-
 ul{
     list-style: none;
     margin: 0;
