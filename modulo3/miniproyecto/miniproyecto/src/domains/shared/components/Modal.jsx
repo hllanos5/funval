@@ -3,7 +3,7 @@ import React from 'react'
 export function Modal({toggleModal}) {
   return (
     <>
-    <div className='panel-busqueda-modal'>
+    <div className='panel-busqueda-modal-general'>
         <div className='panel-busqueda-modal'>
           <div className='location'>
             <div className='input-location'>

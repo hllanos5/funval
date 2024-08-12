@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <div className='contenedor-principal'>
+      <div className={'contenedor-principal '+ (isOpen ? 'bloqueo' : '')}>
         <Nav toggleModal={toggleModal}/>
         <List data={data}/>
       </div>

@@ -44,10 +44,10 @@ nav {
     }    
 }    
 
-.panel-busqueda-modal{
+.panel-busqueda-modal-general{
     position: absolute;
     top: 1px;
-    width: 95%;
+    width: 99.5%;
     height: 500px;
     background-color: white;
 
@@ -235,4 +235,7 @@ ul{
     list-style: none;
     margin: 0;
     padding: 0;
+}
+.bloqueo{
+    opacity: 0.5;
 }

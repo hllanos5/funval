@@ -6,7 +6,7 @@ export function Nav({toggleModal}) {
         <div className='panel-busqueda'>
             <div>Helsinki, Findland</div>
             <div className='buscador'>
-            <input type="text" placeholder='Add guests'/>
+            <input type="text" placeholder='Add guests' readOnly/>
         </div>
         <div className='buscar' onClick={toggleModal}>
             <span className="material-symbols-outlined">
