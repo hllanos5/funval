@@ -5,14 +5,18 @@ import { Modal } from './domains/shared/components/Modal';
 
 function App() {
 
-  const[data, setData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  
+  const [data, setData] = useState([]);
+  const [dataFilter, setDataFilter] = useState([]);
+  const [location, setLocation] = useState(["Helsinki, Finland","Turku, Finland","Vaasa, Finland","Oulu, Finland"]); 
+  const [locationGeneralFilter, setLocationGeneralFilter] = useState();
+
   async function getData() {
 
     const data = await fetch('stays.json');
     const jsonData = await data.json();
     setData(jsonData);
+    setDataFilter(jsonData);
   }
 
   const toggleModal = () => {
@@ -27,11 +31,16 @@ function App() {
   return (
     <>
       <div className={'contenedor-principal '+ (isOpen ? 'bloqueo' : '')}>
-        <Nav toggleModal={toggleModal}/>
-        <List data={data}/>
+        <Nav toggleModal={toggleModal} locationGeneralFilter={locationGeneralFilter}/>
+        <List data={dataFilter} />
       </div>
       { isOpen &&
-        <Modal toggleModal={toggleModal}/>
+        <Modal 
+          toggleModal={toggleModal} 
+          location={location} 
+          data={data} 
+          setDataFilter={setDataFilter} 
+          setLocationGeneralFilter= {setLocationGeneralFilter}/>
       }
     </>
   )

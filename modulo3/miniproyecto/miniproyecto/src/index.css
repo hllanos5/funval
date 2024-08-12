@@ -85,14 +85,18 @@ nav {
                 margin-top: 2rem;
                 display: flex;
                 flex-direction: column;
-                row-gap: 2rem;
+                row-gap: .5rem;
                 margin-left: 3rem;
                 font-size: 14px;
                 li{
                    display: flex;
                    gap: .5rem;
                    align-items: center;
-                   
+                   cursor: pointer;   
+                   padding: 6px;                
+                }
+                li:hover {
+                    background: #fafafa;
                 }
             }
 

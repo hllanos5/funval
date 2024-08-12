@@ -1,10 +1,10 @@
 import React from 'react'
 
-export function Nav({toggleModal}) {
+export function Nav({toggleModal, locationGeneralFilter}) {
   return (
     <nav>
         <div className='panel-busqueda'>
-            <div>Helsinki, Findland</div>
+            <div>{locationGeneralFilter}</div>
             <div className='buscador'>
             <input type="text" placeholder='Add guests' readOnly/>
         </div>
