@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 export function Modal({toggleModal, location, data, setDataFilter, setLocationGeneralFilter}) {
-    
+
+    const [isOpenLocation, setIsOpenLocation] = useState(false);
+    const [isOpenGuests, setIsOpenGuests] = useState(false);
+
     const [locationFilter, setLocationFilter] = useState("");
     const [filterValues, setFilterValues] = useState({
         location: ''
@@ -26,16 +29,27 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
         }
     }
 
+    const togglePanelLocation = () => {
+        console.log("fff");
+        setIsOpenLocation(!isOpenLocation);
+    }
+    
+    const togglePanelGuests = () => {
+        setIsOpenGuests(!isOpenGuests)
+    }
+
     return (
     <>
     <div className='panel-busqueda-modal-general'>
         <div className='panel-busqueda-modal'>
             <div className='location'>
-            <div className='input-location'>
+            <div className='input-location' onClick={togglePanelLocation}>
                 <span>LOCATION</span>
-                <input type="text" value={locationFilter} disabled/>
+                <input type="text" value={locationFilter} readOnly />
             </div>
-            <ul>
+            {
+                isOpenLocation && 
+                <ul>
                 {
                     location.map ((nombre, index)=>
                         <li key={index} onClick={handlerLocationSelected}>
@@ -47,32 +61,38 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
                     )
                 }
             </ul>
+            }
+            
             </div>
             <div className='guest'>
-            <div className='input-guest'>
+            <div className='input-guest'onClick={togglePanelGuests}>
                 <span>GUESTS</span>
-                <input type="text" placeholder='Add guests' disabled/>
+                <input type="text" placeholder='Add guests' readOnly/>
             </div>
-            <div className='panel-guest-details'>
-                <div className='detail'>
-                <span>Adults</span>
-                <label>Ages 13 or Above</label>
-                <div className='panel-botones'>
-                    <div className='signo'>-</div>
-                    <div className='contador'>0</div>
-                    <div className='signo'>+</div>
+            {
+                isOpenGuests && 
+                <div className='panel-guest-details'>
+                    <div className='detail'>
+                    <span>Adults</span>
+                    <label>Ages 13 or Above</label>
+                    <div className='panel-botones'>
+                        <div className='signo'>-</div>
+                        <div className='contador'>0</div>
+                        <div className='signo'>+</div>
+                    </div>
+                    </div>
+                    <div className='detail'>
+                    <span>Children</span>
+                    <label>Ages 2 - 12</label>
+                    <div className='panel-botones'>
+                        <div className='signo'>-</div>
+                        <div className='contador'>0</div>
+                        <div className='signo'>+</div>
+                    </div>
+                    </div>
                 </div>
-                </div>
-                <div className='detail'>
-                <span>Children</span>
-                <label>Ages 2 - 12</label>
-                <div className='panel-botones'>
-                    <div className='signo'>-</div>
-                    <div className='contador'>0</div>
-                    <div className='signo'>+</div>
-                </div>
-                </div>
-            </div>
+            }
+            
             </div>
             <div className='panel-buscar'>
             <button onClick={()=>{filterData() ,toggleModal()}}>

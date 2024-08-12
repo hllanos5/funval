@@ -31,7 +31,9 @@ function App() {
   return (
     <>
       <div className={'contenedor-principal '+ (isOpen ? 'bloqueo' : '')}>
-        <Nav toggleModal={toggleModal} locationGeneralFilter={locationGeneralFilter}/>
+        <Nav 
+        toggleModal={toggleModal} 
+        locationGeneralFilter={locationGeneralFilter}/>
         <List data={dataFilter} />
       </div>
       { isOpen &&
