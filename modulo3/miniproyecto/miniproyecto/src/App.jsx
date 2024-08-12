@@ -10,6 +10,9 @@ function App() {
   const [dataFilter, setDataFilter] = useState([]);
   const [location, setLocation] = useState(["Helsinki, Finland","Turku, Finland","Vaasa, Finland","Oulu, Finland"]); 
   const [locationGeneralFilter, setLocationGeneralFilter] = useState();
+  const [guestsGeneralFilter, setGuestsGeneralFilter] = useState(0);
+  const [adultGuestsGeneralFilter, setAdultGuestsGeneralFilter] = useState(0);
+  const [childrenGuestsGeneralFilter, setChildrenGuestsGeneralFilter] = useState(0);
 
   async function getData() {
 
@@ -33,7 +36,8 @@ function App() {
       <div className={'contenedor-principal '+ (isOpen ? 'bloqueo' : '')}>
         <Nav 
         toggleModal={toggleModal} 
-        locationGeneralFilter={locationGeneralFilter}/>
+        locationGeneralFilter={locationGeneralFilter}
+        guestsGeneralFilter = {guestsGeneralFilter}/>
         <List data={dataFilter} />
       </div>
       { isOpen &&
@@ -42,7 +46,14 @@ function App() {
           location={location} 
           data={data} 
           setDataFilter={setDataFilter} 
-          setLocationGeneralFilter= {setLocationGeneralFilter}/>
+          setLocationGeneralFilter= {setLocationGeneralFilter}
+          locationGeneralFilter={locationGeneralFilter}
+          setGuestsGeneralFilter = {setGuestsGeneralFilter}
+          setAdultGuestsGeneralFilter= {setAdultGuestsGeneralFilter}
+          setChildrenGuestsGeneralFilter={setChildrenGuestsGeneralFilter}
+          adultGuestsGeneralFilter = {adultGuestsGeneralFilter}
+          childrenGuestsGeneralFilter = {childrenGuestsGeneralFilter}
+          />
       }
     </>
   )

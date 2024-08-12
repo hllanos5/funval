@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export function Modal({toggleModal, location, data, setDataFilter, setLocationGeneralFilter}) {
+export function Modal({toggleModal, location, data, setDataFilter, setLocationGeneralFilter, locationGeneralFilter, setGuestsGeneralFilter, setAdultGuestsGeneralFilter, setChildrenGuestsGeneralFilter, adultGuestsGeneralFilter, childrenGuestsGeneralFilter}) {
 
     const [isOpenLocation, setIsOpenLocation] = useState(false);
     const [isOpenGuests, setIsOpenGuests] = useState(false);
@@ -25,12 +25,14 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             let contador = adultFilter-1;
             setAdultFilter(contador);
             setGuestsFilter(contador+childrenFilter);
+            setAdultGuestsGeneralFilter(contador);
         }        
     }
     const handlerAdultMas= (e) => {
         let contador = adultFilter+1;
         setAdultFilter(contador);
         setGuestsFilter(contador+childrenFilter);
+        setAdultGuestsGeneralFilter(contador);
     }
 
     const handlerChildrenMenos= (e) => {
@@ -38,12 +40,14 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             let contador = childrenFilter-1;
             setChildrenFilter(contador);
             setGuestsFilter(contador+adultFilter);
+            setChildrenGuestsGeneralFilter(contador);
         }        
     }
     const handlerChildrenMas= (e) => {
         let contador = childrenFilter+1;
         setChildrenFilter(contador);
         setGuestsFilter(contador+adultFilter);
+        setChildrenGuestsGeneralFilter(contador);
     }
 
     function filterData() {
@@ -54,17 +58,22 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             const rs = data.filter(obj => obj.city === ciudad);
             setDataFilter(rs);
             setLocationGeneralFilter(location);
+            setGuestsGeneralFilter(guestsFilter);
             return;
         }
         if(guestsFilter > 0 && ciudad === ""){
             const rs = data.filter(obj => obj.maxGuests >= guestsFilter);
             setDataFilter(rs);
+            setLocationGeneralFilter(location);
+            setGuestsGeneralFilter(guestsFilter);
             return;
         }
 
         if(guestsFilter > 0 && ciudad !== ""){
             const rs = data.filter(obj => (obj.maxGuests >= guestsFilter && obj.city === ciudad));
             setDataFilter(rs);
+            setLocationGeneralFilter(location);
+            setGuestsGeneralFilter(guestsFilter);
             return;
         }
 
@@ -86,7 +95,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             <div className='location'>
             <div className='input-location' onClick={togglePanelLocation}>
                 <span>LOCATION</span>
-                <input type="text" value={locationFilter} readOnly />
+                <input type="text" value={locationFilter.length>0 ? locationFilter : locationGeneralFilter } readOnly />
             </div>
             {
                 isOpenLocation && 
@@ -108,7 +117,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             <div className='guest'>
             <div className='input-guest'onClick={togglePanelGuests}>
                 <span>GUESTS</span>
-                <input type="text" placeholder='Add guests' value={guestsFilter} readOnly/>
+                <input type="text" placeholder='Add guests' value={guestsFilter>0 ? guestsFilter : (adultGuestsGeneralFilter+childrenGuestsGeneralFilter)} readOnly/>
             </div>
             {
                 isOpenGuests && 
@@ -118,7 +127,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
                     <label>Ages 13 or Above</label>
                     <div className='panel-botones'>
                         <button className='signo' onClick={handlerAdultMenos}>-</button>
-                        <div className='contador'>{adultFilter}</div>
+                        <div className='contador'>{adultFilter>0 ? adultFilter: adultGuestsGeneralFilter}</div>
                         <button className='signo' onClick={handlerAdultMas}>+</button>
                     </div>
                     </div>
@@ -127,7 +136,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
                     <label>Ages 2 - 12</label>
                     <div className='panel-botones'>
                         <button className='signo' onClick={handlerChildrenMenos}>-</button>
-                        <div className='contador'>{childrenFilter}</div>
+                        <div className='contador'>{childrenFilter > 0 ? childrenFilter : childrenGuestsGeneralFilter}</div>
                         <button className='signo' onClick={handlerChildrenMas}>+</button>
                     </div>
                     </div>
