@@ -50,12 +50,25 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
         const { location } = filterValues;
         let ciudad = location.split(",")[0];
         
-        if(ciudad!== ""){
+        if(ciudad !== "" && guestsFilter === 0){
             const rs = data.filter(obj => obj.city === ciudad);
             setDataFilter(rs);
             setLocationGeneralFilter(location);
             return;
         }
+        if(guestsFilter > 0 && ciudad === ""){
+            const rs = data.filter(obj => obj.maxGuests >= guestsFilter);
+            setDataFilter(rs);
+            return;
+        }
+
+        if(guestsFilter > 0 && ciudad !== ""){
+            const rs = data.filter(obj => (obj.maxGuests >= guestsFilter && obj.city === ciudad));
+            setDataFilter(rs);
+            return;
+        }
+
+        return setDataFilter(data);
     }
 
     const togglePanelLocation = () => {        
