@@ -1,5 +1,7 @@
 body{
     font-family: "Roboto", sans-serif;
+}  
+.contenedor-principal{
     margin-inline: 5rem;
 }
 nav {
@@ -39,8 +41,66 @@ nav {
             cursor: pointer;
             color: red;
         }
+    }    
+}    
+
+.panel-busqueda-modal{
+    position: absolute;
+    top: 1px;
+    width: 100%;
+    height: 500px;
+    background-color: white;
+
+    .panel-busqueda-modal{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 3rem;
+        border:1px groove red;
+        padding-top: 5rem;
+        padding-inline: 5rem;
+        height: auto;
+        .location, .guest {
+            .input-location, .input-guest {
+                display: flex;
+                flex-direction: column;    
+                border:1px solid #f3f3f3;
+                border-radius: 10px;
+                padding-inline: 2rem;
+                padding-block: .5rem;
+                cursor: pointer;
+                row-gap: .2rem;
+
+                span {
+                    font-size: 11px;
+                    font-weight: bold;
+                }
+                input {
+                    outline: none;
+                    border: none;
+                    background: none;
+                    margin-left: -2px;
+                    cursor: pointer;
+                }
+            }
+
+        }
+        .panel-buscar {
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 90%;
+                width: 100px;
+                background-color: #eb5757;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+        }
     }
 }
+
 
 .panel-titulo {
     display: flex;

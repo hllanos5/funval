@@ -20,8 +20,34 @@ function App() {
 
   return (
     <>
-      <Nav/>
-      <List data={data}/>
+      <div className='contenedor-principal'>
+        <Nav />
+        <List data={data}/>
+      </div>
+      <div className='panel-busqueda-modal'>
+        <div className='panel-busqueda-modal'>
+          <div className='location'>
+            <div className='input-location'>
+              <span>LOCATION</span>
+              <input type="text" value="Helsinki, Finland" disabled="true"/>
+            </div>
+          </div>
+          <div className='guest'>
+            <div className='input-guest'>
+              <span>GUESTS</span>
+              <input type="text" placeholder='Add guests' disabled="true"/>
+            </div>
+          </div>
+          <div className='panel-buscar'>
+            <button>
+              <span className="material-symbols-outlined">
+              search
+              </span>
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

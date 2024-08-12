@@ -7,8 +7,8 @@ export function Nav() {
             <div>Helsinki, Findland</div>
             <div className='buscador'>
             <input type="text" placeholder='Add guests'/>
-            </div>
-            <div className='buscar'>
+        </div>
+        <div className='buscar'>
             <span className="material-symbols-outlined">
             search
             </span>

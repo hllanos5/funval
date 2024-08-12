@@ -1,5 +1,5 @@
 import React from 'react'
-import {Titulo} from '../components/Titulo'
+import { Titulo } from '../components/Titulo'
 import { Card } from '../components/Card'
 
 export function List({data}) {
@@ -10,7 +10,7 @@ export function List({data}) {
             <ul className="card">
             {
                 data.map((obj,index) =>
-                    <Card index={index} obj={obj}/>
+                    <Card key={index} obj={obj}/>
                 )
             }            
             </ul>
