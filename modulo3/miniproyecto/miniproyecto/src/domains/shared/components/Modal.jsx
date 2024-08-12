@@ -6,6 +6,10 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
     const [isOpenGuests, setIsOpenGuests] = useState(false);
 
     const [locationFilter, setLocationFilter] = useState("");
+    const [guestsFilter, setGuestsFilter] = useState(0);
+    const [adultFilter, setAdultFilter] = useState(0);
+    const [childrenFilter, setChildrenFilter] = useState(0);
+
     const [filterValues, setFilterValues] = useState({
         location: ''
     })
@@ -15,6 +19,31 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
         setLocationFilter(filtroLocation);
         setFilterValues({ ...setFilterValues, ["location"]: filtroLocation })
         
+    }
+    const handlerAdultMenos= (e) => {
+        if(adultFilter>0){
+            let contador = adultFilter-1;
+            setAdultFilter(contador);
+            setGuestsFilter(contador+childrenFilter);
+        }        
+    }
+    const handlerAdultMas= (e) => {
+        let contador = adultFilter+1;
+        setAdultFilter(contador);
+        setGuestsFilter(contador+childrenFilter);
+    }
+
+    const handlerChildrenMenos= (e) => {
+        if(childrenFilter>0){
+            let contador = childrenFilter-1;
+            setChildrenFilter(contador);
+            setGuestsFilter(contador+adultFilter);
+        }        
+    }
+    const handlerChildrenMas= (e) => {
+        let contador = childrenFilter+1;
+        setChildrenFilter(contador);
+        setGuestsFilter(contador+adultFilter);
     }
 
     function filterData() {
@@ -29,8 +58,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
         }
     }
 
-    const togglePanelLocation = () => {
-        console.log("fff");
+    const togglePanelLocation = () => {        
         setIsOpenLocation(!isOpenLocation);
     }
     
@@ -67,7 +95,7 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
             <div className='guest'>
             <div className='input-guest'onClick={togglePanelGuests}>
                 <span>GUESTS</span>
-                <input type="text" placeholder='Add guests' readOnly/>
+                <input type="text" placeholder='Add guests' value={guestsFilter} readOnly/>
             </div>
             {
                 isOpenGuests && 
@@ -76,18 +104,18 @@ export function Modal({toggleModal, location, data, setDataFilter, setLocationGe
                     <span>Adults</span>
                     <label>Ages 13 or Above</label>
                     <div className='panel-botones'>
-                        <div className='signo'>-</div>
-                        <div className='contador'>0</div>
-                        <div className='signo'>+</div>
+                        <button className='signo' onClick={handlerAdultMenos}>-</button>
+                        <div className='contador'>{adultFilter}</div>
+                        <button className='signo' onClick={handlerAdultMas}>+</button>
                     </div>
                     </div>
                     <div className='detail'>
                     <span>Children</span>
                     <label>Ages 2 - 12</label>
                     <div className='panel-botones'>
-                        <div className='signo'>-</div>
-                        <div className='contador'>0</div>
-                        <div className='signo'>+</div>
+                        <button className='signo' onClick={handlerChildrenMenos}>-</button>
+                        <div className='contador'>{childrenFilter}</div>
+                        <button className='signo' onClick={handlerChildrenMas}>+</button>
                     </div>
                     </div>
                 </div>
