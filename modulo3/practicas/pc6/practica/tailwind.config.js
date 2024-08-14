@@ -5,7 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'SoftOrange':'hsl(35, 77%, 62%)',
+        'SoftRed':'hsl(5, 85%, 63%)',
+        'OffWhite':'hsl(36, 100%, 99%)',
+        'GrayisBlue':'hsl(233, 8%, 79%)',
+        'DarkGrayisBlue':'hsl(236, 13%, 42%)',
+        'VeryDarkBlue':'hsl(35, 77%, 62%)',
+      }
+    },
   },
   plugins: [],
 }
