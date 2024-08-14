@@ -12,7 +12,7 @@ export default {
         'OffWhite':'hsl(36, 100%, 99%)',
         'GrayisBlue':'hsl(233, 8%, 79%)',
         'DarkGrayisBlue':'hsl(236, 13%, 42%)',
-        'VeryDarkBlue':'hsl(35, 77%, 62%)',
+        'VeryDarkBlue':'black',
       }
     },
   },
