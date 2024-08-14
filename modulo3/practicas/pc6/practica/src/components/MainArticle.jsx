@@ -4,9 +4,9 @@ export function MainArticule() {
   return (
     <section className='mb-12'>
       <picture>
-        <source media="(max-width:640px)" srcSet={'./images/image-web-3-desktop.jpg'}></source>
-        <source media="(min-width:641px)" srcSet={'./images/image-web-3-mobile.jpg'}></source>
-        <img src={'./images/image-web-3-mobile.jpg'} alt="Articulo Principal Imagen" />
+        <source media="(max-width:640px)" srcSet={'./images/image-web-3-mobile.jpg'}></source>
+        <source media="(min-width:641px)" srcSet={'./images/image-web-3-desktop.jpg'}></source>
+        <img src={'./images/image-web-3-desktop.jpg'} alt="Articulo Principal Imagen" />
       </picture>
       <div className='sm:flex'>
         <div className='flex-1 py-6'>
