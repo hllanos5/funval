@@ -1,61 +1,23 @@
-import React, { useEffect, useState } from 'react'
 import './App.css'
+import { useCatImage } from './hooks/useCarImage.js'
+import { useCatFact } from './hooks/useCatFact.js'
 
-const CAT_ENDPOINT_RANDOM_FACT = `https://catfact.ninja/fact`;
-//const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`;
-const CAT_PREFIX_IMAGE_URL = 'https://cataas.com'
+export function App () {
+  const { fact, refreshFact } = useCatFact()
+  const { imageUrl } = useCatImage({ fact })
 
-export function App() {
+  const handleClick = async () => {
+    refreshFact()
+  }
 
-    const [fact, setFact] = useState();
-    const [imageUrl, setImageUrl] = useState();
-    const [factError, setFAcError] = useState();
-    
-    useEffect(()=>{
-        fetch(CAT_ENDPOINT_RANDOM_FACT)
-        .then(res => res.json())
-        .then(data => {
-            const { fact } = data;
-            setFact(fact);
-            
-        })
+  return (
+    <main>
+      <h1>App de gatitos</h1>
 
-    }, [])
-    
-    const handleClick = ()=> {
-        fetch(CAT_ENDPOINT_RANDOM_FACT)
-        .then(res => res.json())
-        .then(data => {
-            const { fact } = data;
-            setFact(fact);
-            
-        })
-    }
+      <button onClick={handleClick}>Get new fact</button>
 
-    useEffect(()=> {
-        if(!fact) return
-
-        const firstWord = fact.split(' ',3).join(' ');
-        
-            
-        fetch (`https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`)
-        .then(res => res.json())
-        .then(response => {
-            const { _id } = response
-            const url = `/cat/${_id}/says/${firstWord}`                
-            setImageUrl(`https://cataas.com/${url}`);
-        })
-
-    },[fact])
-    
-    return (
-        <main>
-            <h1>App de gatitos</h1>
-            <button onClick={handleClick}>Get new fact</button>
-            <section>
-                {fact && <p>{fact}</p>}
-                {imageUrl && <img src={imageUrl} alt='cat'/>}
-            </section>
-        </main>
-    )
+      {fact && <p>{fact}</p>}
+      {imageUrl && <img src={imageUrl} alt={`Image extracted using the first three words for ${fact}`} />}
+    </main>
+  )
 }
