@@ -9,6 +9,7 @@ export function App() {
 
     const [fact, setFact] = useState();
     const [imageUrl, setImageUrl] = useState();
+    const [factError, setFAcError] = useState();
     
     useEffect(()=>{
         fetch(CAT_ENDPOINT_RANDOM_FACT)
@@ -20,11 +21,22 @@ export function App() {
         })
 
     }, [])
+    
+    const handleClick = ()=> {
+        fetch(CAT_ENDPOINT_RANDOM_FACT)
+        .then(res => res.json())
+        .then(data => {
+            const { fact } = data;
+            setFact(fact);
+            
+        })
+    }
 
     useEffect(()=> {
         if(!fact) return
-        
+
         const firstWord = fact.split(' ',3).join(' ');
+        
             
         fetch (`https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`)
         .then(res => res.json())
@@ -39,6 +51,7 @@ export function App() {
     return (
         <main>
             <h1>App de gatitos</h1>
+            <button onClick={handleClick}>Get new fact</button>
             <section>
                 {fact && <p>{fact}</p>}
                 {imageUrl && <img src={imageUrl} alt='cat'/>}
