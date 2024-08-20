@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react'
 
-const CAT_ENDPOINT_RANDOM_FACT = `https://cataas.com/fact`;
-const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`;
+const CAT_ENDPOINT_RANDOM_FACT = `https://catfact.ninja/fact`;
+//const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`;
+const CAT_PREFIX_IMAGE_URL = 'https://cataas.com'
 
 export function App() {
 
-    const [fact, setFact] = useState('ddds');
+    const [fact, setFact] = useState();
+    const [imageUrl, setImageUrl] = useState();
     
     useEffect(()=>{
         fetch(CAT_ENDPOINT_RANDOM_FACT)
         .then(res => res.json())
-        .then(data => setFact(data.fact))
+        .then(data => {
+            const { fact } = data;
+            setFact(fact);
+            
+            const firstWord = fact.split(' ',3).join(' ');
+            console.log(firstWord);
+            fetch (`https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`)
+            .then(res => res.json())
+            .then(response => {
+                const { _id } = response
+               const url = `/cat/${_id}/says/${firstWord}`                
+                setImageUrl(`https://cataas.com/${url}`);
+            })
+        })
 
     }, [])
     
     return (
-        <div>
+        <main>
             <h1>App de gatitos</h1>
             {fact && <p>{fact}</p>}
-        </div>
+            {imageUrl && <img src={imageUrl} alt='cat'/>}
+        </main>
     )
 }
