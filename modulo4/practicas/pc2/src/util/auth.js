@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
+import { config } from "dotenv";
 
-const secretKey = 'tu_clave_secreta';
+const secretKey = process.env.CLAVE_JWT;
 
 export const generateToken = payload => {
   return jwt.sign(payload, secretKey, { expiresIn: '1h' });
